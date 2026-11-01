@@ -23,6 +23,8 @@ Next.js 16 App Router, React 19, TypeScript, Tailwind CSS 4 + custom CSS, Motion
 
 Requirements: Node.js **20.9+** (22 LTS recommended), npm.
 
+On Windows, double-click `start.bat` in the project folder. It installs missing dependencies and starts the development server. Open the Local URL printed in the console (usually `http://localhost:3000`). Keep the console open; press Ctrl+C to stop. The first launch requires Internet access.
+
 ```bash
 npm install
 npm run dev
