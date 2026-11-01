@@ -10,7 +10,7 @@ Designed as a dark, monochrome, futuristic portfolio with an animated developer 
 - Separate case-study page at `/en/projects/ai-body-analyzer` and `/uk/projects/ai-body-analyzer`.
 - EN and UA translations with `next-intl`, English by default.
 - Motion-powered section reveals; respects `prefers-reduced-motion`.
-- Fully functional contact form **once an email provider access key is configured**; email link works without configuration.
+- Direct email contact links compatible with static GitHub Pages hosting.
 - Semantic sections, keyboard-friendly navigation, accessible labels and mobile menu.
 - Custom vector-based project visual: **concept artwork, not a screenshot or claimed product result**.
 - No fake skill percentages, work history, social links or active live-demo claims.
@@ -39,34 +39,21 @@ npm run lint
 npm run build
 ```
 
-## Contact form — one-time setup
+## Hosting on GitHub Pages
 
-The recipient is **kovalevich.vadimm@gmail.com**. The form POSTs to `/api/contact`; server-side validation, size restriction, cross-origin check and a honeypot are included. The email address is also shown as a direct `mailto:` alternative.
+This version is a static site. Contact buttons open an email app; there is no server-side email endpoint or API key requirement.
 
-### Option A — Web3Forms (recommended without a custom domain)
+The `.github/workflows/pages.yml` workflow builds and publishes pushes to `main` with GitHub Actions. In repository Settings → Pages, select **GitHub Actions** as the source if Pages is not enabled automatically. Check the Actions tab for the deployment result.
 
-1. Request a free access key at <https://web3forms.com/> using the recipient email and verify it.
-2. Copy `.env.example` to `.env.local`.
-3. Set `WEB3FORMS_ACCESS_KEY=your-key`.
-4. Restart the development server and test a message. On Vercel add the same environment variable in Project Settings and redeploy.
+Expected project URL: https://quz1ro.github.io/portfolio/
 
-**Important:** The provider's own troubleshooting notes say it may block certain free hosting subdomains. If a `vercel.app` domain is blocked, you may need to contact its support, choose another provider, or use a custom domain. Do not consider the contact form tested until a real message reaches the inbox.
+The workflow sets `NEXT_PUBLIC_BASE_PATH` from GitHub Pages configuration so assets and links work under `/portfolio`. For a local export matching this project URL:
 
-### Option B — Resend (alternative)
+```bash
+NEXT_PUBLIC_BASE_PATH=/portfolio npm run build
+```
 
-Set `RESEND_API_KEY` and `RESEND_FROM_EMAIL` in `.env.local` / Vercel. Resend generally requires a verified sender domain for production. Without a domain, its default sender is restricted to test addresses / the registered account. `WEB3FORMS_ACCESS_KEY` takes precedence when both are set.
-
-**If neither option is configured**, the UI reports that sending is unavailable and offers a direct email link. It will never display a false success message.
-
-## Deploy to Vercel
-
-1. Create your own repository (e.g. `kovalevych-portfolio`) under [@Quz1ro](https://github.com/Quz1ro) and push the files from this folder.
-2. Visit <https://vercel.com/new>, import the repo, leave framework as Next.js.
-3. If you configured an email provider, add its environment variable(s) under Project Settings → Environment Variables.
-4. Deploy. You receive a free `*.vercel.app` subdomain (on the free Hobby plan for personal non-commercial use).
-5. Verify `/en`, `/uk`, the project page, navigation and form on a real phone and desktop. Test actual email delivery.
-
-There is **no deployed URL** yet; deployment needs your GitHub/Vercel accounts.
+For ordinary local development, use `start.bat` or `npm run dev` without that variable. The root page opens the English version; Ukrainian is available through the language switch.
 
 ## Editing content
 
@@ -79,7 +66,7 @@ There is **no deployed URL** yet; deployment needs your GitHub/Vercel accounts.
 | AI project case study | `src/components/case-study.tsx` |
 | Theme/layout | `src/app/globals.css` |
 | Animated terminal | `src/components/terminal.tsx` |
-| Email delivery | `src/app/api/contact/route.ts` |
+| Email contact | `src/components/contact-form.tsx` |
 
 ## About your AI project
 
@@ -90,8 +77,8 @@ The project features and technologies are presented as **documented by the repos
 - Optionally add a real portrait in a future release (no placeholder portrait was invented).
 - If available, take actual screenshots of AI Body Analyzer and replace the conceptual visualization, clearly labeled.
 - Review the English and Ukrainian biography text and project contributions for accuracy.
-- Configure and test the email service before inviting visitors to use the form.
-- Optional: add spam protection (e.g. Turnstile or provider-specific controls) if contact spam appears.
+- Check that the contact links open your email app.
+
 
 ## License
 

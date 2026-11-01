@@ -126,7 +126,8 @@
     "config": "The contact service is not configured yet. Please email me directly.",
     "privacy": "Your details are only used to respond to your message.",
     "other": "FIND ME ON",
-    "emailMe": "Email directly"
+    "emailMe": "Email directly",
+    "emailDescription": "Open your email app to send me a message directly."
   },
   "Footer": {
     "tag": "BUILDING WHAT COMES NEXT.",

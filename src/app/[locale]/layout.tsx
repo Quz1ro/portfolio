@@ -18,7 +18,7 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
     description: t('description'),
     robots: {index: true, follow: true},
     openGraph: {title: t('title'), description: t('description'), type: 'website', locale: locale === 'uk' ? 'uk_UA' : 'en_US'},
-    icons: {icon: '/favicon.svg'}
+    icons: {icon: `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/favicon.svg`}
   };
 }
 
@@ -26,7 +26,7 @@ export default async function LocaleLayout({children, params}: Readonly<{childre
   const {locale} = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
-  const messages = await getMessages();
+  const messages = await getMessages({locale});
   return (
     <html lang={locale}>
       <body>
